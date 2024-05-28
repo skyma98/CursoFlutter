@@ -18,17 +18,15 @@ final appRouter = GoRouter(
       path: "/home/:userid/counter",
       name: CounterScreen.name,
       builder: (context, state) {
-        final id = state.pathParameters["userid"]!;
-        return CounterScreen(userid: id);
+        return const CounterScreen();
       },
     ),
     GoRoute(
       path: "/home/:userid/pokemones/:index",
       name: PokemonScreen.name,
       builder: (context, state) {
-        final id = state.pathParameters["userid"]!;
         final index = state.pathParameters["index"]!;
-        return PokemonScreen(userid: id, selectedView: int.tryParse(index)!);
+        return PokemonScreen(selectedView: int.tryParse(index)!);
       },
     ),
     GoRoute(

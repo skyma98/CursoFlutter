@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pokemon_prueba/presentation/providers/user/user_login_provider.dart';
 import 'package:pokemon_prueba/presentation/providers/user/users_provider.dart';
 
 class LoginScreen extends ConsumerWidget {
@@ -12,6 +13,7 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final users =
         ref.watch(usersProvider).entries.map((value) => value.value).toList();
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -25,6 +27,7 @@ class LoginScreen extends ConsumerWidget {
                   return ListTile(
                     onTap: () {
                       final String id = user.uuid;
+                      ref.read(userLoginProvider.notifier).state = id;
                       context.go('/home/$id/pokemones/0');
                     },
                     leading: CircleAvatar(
@@ -41,6 +44,8 @@ class LoginScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           final usuario = await ref.read(usersProvider.notifier).addUser();
+
+          ref.read(userLoginProvider.notifier).state = usuario.uuid;
 
           if (context.mounted) context.go('/home/${usuario.uuid}/pokemones/0');
         },

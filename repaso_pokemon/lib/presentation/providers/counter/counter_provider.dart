@@ -1,42 +1,85 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokemon_prueba/domain/counter/counter.dart';
 
-final counterProvider = StateNotifierProvider<CounterNotifier, Counter>(
+final counterProvider =
+    StateNotifierProvider<CounterNotifier, Map<String, Counter>>(
   (ref) {
     return CounterNotifier();
   },
 );
 
-class CounterNotifier extends StateNotifier<Counter> {
-  CounterNotifier() : super(Counter(currentValue: 0, minValue: 0, maxValue: 0));
+class CounterNotifier extends StateNotifier<Map<String, Counter>> {
+  CounterNotifier() : super({});
 
-  void incrementar() {
-    final currentValInc = state.currentValue + 1;
-    final copyState = state.copyWith(
-      currentValue: currentValInc,
-      maxValue:
-          (currentValInc > state.maxValue ? currentValInc : state.maxValue),
-    );
+  void incrementar(String userId) {
+    Counter counter;
 
-    state = copyState;
+    final copyState = {...state};
+    if (state[userId] == null) {
+      counter = Counter(currentValue: 1, maxValue: 1, minValue: 0);
+    } else {
+      final currentValInc = state[userId]!.currentValue + 1;
+      counter = state[userId]!.copyWith(
+          currentValue: currentValInc,
+          maxValue: (currentValInc > state[userId]!.maxValue
+              ? currentValInc
+              : state[userId]!.maxValue));
+
+      copyState.remove(userId);
+    }
+
+    state = {...copyState, userId: counter};
   }
 
-  void decrementar() {
-    final currentValDec = state.currentValue - 1;
-    final copyState = state.copyWith(
-      currentValue: currentValDec,
-      minValue:
-          (currentValDec < state.minValue ? currentValDec : state.minValue),
-    );
+//hacer
+  void decrementar(String userId) {
+    Counter counter;
 
-    state = copyState;
+    final copyState = {...state};
+    if (state[userId] == null) {
+      counter = Counter(currentValue: -1, maxValue: 0, minValue: -1);
+    } else {
+      final currentValDec = state[userId]!.currentValue - 1;
+      counter = state[userId]!.copyWith(
+          currentValue: currentValDec,
+          minValue: (currentValDec < state[userId]!.minValue
+              ? currentValDec
+              : state[userId]!.minValue));
+
+      copyState.remove(userId);
+    }
+
+    state = {...copyState, userId: counter};
   }
 
-  void resetear() {
-    state = state.copyWith(currentValue: 0);
+  void resetear(String userId) {
+    Counter counter;
+
+    final copyState = {...state};
+    if (state[userId] == null) {
+      counter = Counter(currentValue: 0, maxValue: 0, minValue: 0);
+    } else {
+      counter = state[userId]!.copyWith(currentValue: 0);
+
+      copyState.remove(userId);
+    }
+
+    state = {...copyState, userId: counter};
   }
 
-  void resetearTodo() {
-    state = state.copyWith(currentValue: 0, minValue: 0, maxValue: 0);
+  void resetearTodo(String userId) {
+    Counter counter;
+
+    final copyState = {...state};
+    if (state[userId] == null) {
+      counter = Counter(currentValue: 0, maxValue: 0, minValue: 0);
+    } else {
+      counter =
+          state[userId]!.copyWith(currentValue: 0, maxValue: 0, minValue: 0);
+
+      copyState.remove(userId);
+    }
+
+    state = {...copyState, userId: counter};
   }
 }
