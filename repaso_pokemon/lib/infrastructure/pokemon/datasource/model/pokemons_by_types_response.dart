@@ -8,7 +8,7 @@ class PokemonsByTypes {
   final String name;
   final List<Name> names;
   final List<dynamic> pastDamageRelations;
-  final List<Pokemon> pokemon;
+  final List<PokemonResponseByType> pokemon;
 
   PokemonsByTypes({
     required this.damageRelations,
@@ -33,7 +33,7 @@ class PokemonsByTypes {
         name: json["name"],
         names: List<Name>.from(json["names"].map((x) => Name.fromJson(x))),
         pastDamageRelations: List<dynamic>.from(json["past_damage_relations"].map((x) => x)),
-        pokemon: List<Pokemon>.from(json["pokemon"].map((x) => Pokemon.fromJson(x))),
+        pokemon: List<PokemonResponseByType>.from(json["pokemon"].map((x) => PokemonResponseByType.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -146,16 +146,16 @@ class Name {
       };
 }
 
-class Pokemon {
+class PokemonResponseByType {
   final Generation pokemon;
   final int slot;
 
-  Pokemon({
+  PokemonResponseByType({
     required this.pokemon,
     required this.slot,
   });
 
-  factory Pokemon.fromJson(Map<String, dynamic> json) => Pokemon(
+  factory PokemonResponseByType.fromJson(Map<String, dynamic> json) => PokemonResponseByType(
         pokemon: Generation.fromJson(json["pokemon"]),
         slot: json["slot"],
       );

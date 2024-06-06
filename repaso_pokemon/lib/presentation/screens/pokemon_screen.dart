@@ -41,10 +41,8 @@ class PokemonScreen extends ConsumerWidget {
         onTap: (selectedMenu) => onItemTapped(context, selectedMenu, userid),
         currentIndex: selectedView,
         items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_max), label: 'Pokemones'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.label_outline), label: 'Capturados'),
+          BottomNavigationBarItem(icon: Icon(Icons.home_max), label: 'Pokemones'),
+          BottomNavigationBarItem(icon: Icon(Icons.label_outline), label: 'Capturados'),
         ],
       ),
     );

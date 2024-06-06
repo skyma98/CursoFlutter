@@ -17,7 +17,7 @@ class PokemonResponse {
   final Species species;
   final Sprites sprites;
   final List<Stat> stats;
-  final List<Type> types;
+  final List<TypeResponse> types;
   final double weight;
 
   PokemonResponse({
@@ -62,7 +62,7 @@ class PokemonResponse {
         species: Species.fromJson(json["species"]),
         sprites: Sprites.fromJson(json["sprites"]),
         stats: List<Stat>.from(json["stats"].map((x) => Stat.fromJson(x))),
-        types: List<Type>.from(json["types"].map((x) => Type.fromJson(x))),
+        types: List<TypeResponse>.from(json["types"].map((x) => TypeResponse.fromJson(x))),
         weight: json["weight"],
       );
 
@@ -694,16 +694,16 @@ class Stat {
       };
 }
 
-class Type {
+class TypeResponse {
   final int slot;
   final Species type;
 
-  Type({
+  TypeResponse({
     required this.slot,
     required this.type,
   });
 
-  factory Type.fromJson(Map<String, dynamic> json) => Type(
+  factory TypeResponse.fromJson(Map<String, dynamic> json) => TypeResponse(
         slot: json["slot"],
         type: Species.fromJson(json["type"]),
       );
