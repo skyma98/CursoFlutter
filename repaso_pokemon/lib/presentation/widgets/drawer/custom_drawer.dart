@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokemon_prueba/domain/user/user.dart';
-import 'package:pokemon_prueba/presentation/providers/user/user_login_provider.dart';
 
 class CustomDrawer extends ConsumerWidget {
   final User usuario;
@@ -33,16 +32,14 @@ class CustomDrawer extends ConsumerWidget {
                   ),
                   Text(
                     '${usuario.name} ${usuario.lastName}',
-                    style: textTheme.titleLarge!.copyWith(
-                        color: const Color.fromARGB(255, 235, 230, 230)),
+                    style: textTheme.titleLarge!.copyWith(color: const Color.fromARGB(255, 235, 230, 230)),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
                     usuario.email,
-                    style: textTheme.bodyMedium!.copyWith(
-                        color: const Color.fromARGB(255, 235, 230, 230)),
+                    style: textTheme.bodyMedium!.copyWith(color: const Color.fromARGB(255, 235, 230, 230)),
                   ),
                 ],
               ),
