@@ -49,7 +49,7 @@ class PokemonResponse {
         cries: Cries.fromJson(json["cries"]),
         forms: List<Species>.from(json["forms"].map((x) => Species.fromJson(x))),
         gameIndices: List<GameIndex>.from(json["game_indices"].map((x) => GameIndex.fromJson(x))),
-        height: json["height"],
+        height: double.parse(json["height"].toString()),
         heldItems: List<dynamic>.from(json["held_items"].map((x) => x)),
         id: json["id"],
         isDefault: json["is_default"],
@@ -63,7 +63,7 @@ class PokemonResponse {
         sprites: Sprites.fromJson(json["sprites"]),
         stats: List<Stat>.from(json["stats"].map((x) => Stat.fromJson(x))),
         types: List<TypeResponse>.from(json["types"].map((x) => TypeResponse.fromJson(x))),
-        weight: json["weight"],
+        weight: double.parse(json["weight"].toString()),
       );
 
   Map<String, dynamic> toJson() => {

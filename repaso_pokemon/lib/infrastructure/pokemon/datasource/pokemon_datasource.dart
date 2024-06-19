@@ -27,7 +27,11 @@ class PokemonDatasource implements APokemonDatasource {
   }
 
   @override
-  Future<List<Future<Pokemon>>> getPokemonsByType(int type) async {
+  Future<List<Pokemon>> getPokemonsByType(String type, int page) async {
+    if (page <= 0) {
+      return [];
+    }
+
     final dio = Dio();
 
     final result = await dio.get('https://pokeapi.co/api/v2/type/$type');
@@ -40,13 +44,30 @@ class PokemonDatasource implements APokemonDatasource {
 
     final pokemonResponse = PokemonsByTypes.fromJson(data);
 
-    final pokemonsResponse = pokemonResponse.pokemon.map(
+    final pokemones = pokemonResponse.pokemon;
+
+    const int limit = 10;
+
+    final int startIndex = (page - 1) * limit;
+    int endIndex = startIndex - 1 + limit;
+
+    if (startIndex > pokemones.length) {
+      return [];
+    }
+
+    if (endIndex > pokemones.length) {
+      endIndex = pokemones.length;
+    }
+
+    final pokemonsResponse = pokemonResponse.pokemon.sublist(startIndex, endIndex);
+
+    final pokemonResult = await Future.wait(pokemonsResponse.map(
       (e) async {
         return await getPokemon(e.pokemon.url);
       },
-    ).toList();
+    ));
 
-    return pokemonsResponse;
+    return pokemonResult;
   }
 
   @override
@@ -62,5 +83,9 @@ class PokemonDatasource implements APokemonDatasource {
     final data = result.data;
 
     final pokemonResponse = PokemonResponse.fromJson(data);
+
+    final pokemon = PokemonMapper.convertPokemon(pokemonResponse);
+
+    return pokemon;
   }
 }

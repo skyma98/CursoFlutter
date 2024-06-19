@@ -14,8 +14,8 @@ class PokemonRepository implements APokemonRepository {
   }
 
   @override
-  Future<List<Future<Pokemon>>> getPokemonsByType(int type) {
-    return pokemonDatasource.getPokemonsByType(type);
+  Future<List<Pokemon>> getPokemonsByType(String type, int page) {
+    return pokemonDatasource.getPokemonsByType(type, page);
   }
 
   @override

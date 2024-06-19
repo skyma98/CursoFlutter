@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pokemon_prueba/domain/pokemon/pokemons/pokemon.dart';
 
 class HorizontalListview<T> extends StatefulWidget {
   final List<T> items;
@@ -28,8 +29,7 @@ class _HorizontalListviewState extends State<HorizontalListview> {
     super.initState();
 
     scrollController.addListener(() {
-      if ((scrollController.position.pixels + 200) >=
-          scrollController.position.maxScrollExtent) {
+      if ((scrollController.position.pixels + 200) >= scrollController.position.maxScrollExtent) {
         widget.loadNextPage();
       }
     });
@@ -68,8 +68,8 @@ class _HorizontalListviewState extends State<HorizontalListview> {
   }
 }
 
-class _Slide<T> extends StatelessWidget {
-  final T item;
+class _Slide extends StatelessWidget {
+  final Pokemon item;
   final String userId;
 
   const _Slide({required this.item, required this.userId});
@@ -89,15 +89,14 @@ class _Slide<T> extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
-                '',
+                item.urlImage,
                 fit: BoxFit.cover,
                 width: 150,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress != null) {
                     return const Padding(
                       padding: EdgeInsets.all(8.0),
-                      child: Center(
-                          child: CircularProgressIndicator(strokeWidth: 2)),
+                      child: Center(child: CircularProgressIndicator(strokeWidth: 2)),
                     );
                   }
                   return GestureDetector(
@@ -114,10 +113,12 @@ class _Slide<T> extends StatelessWidget {
           //* Title
           SizedBox(
             width: 150,
-            child: Text(
-              '',
-              maxLines: 2,
-              style: textStyles.titleSmall,
+            child: Center(
+              child: Text(
+                item.name,
+                maxLines: 2,
+                style: textStyles.titleSmall,
+              ),
             ),
           ),
         ],
