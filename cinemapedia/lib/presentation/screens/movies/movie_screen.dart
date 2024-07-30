@@ -1,6 +1,5 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
-import 'package:cinemapedia/domain/repositories/local_storage_repository.dart';
 import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/presentation/providers/storage/local_storage_provider.dart';
@@ -112,8 +111,7 @@ class _MovieDetalle extends StatelessWidget {
                     margin: const EdgeInsets.only(right: 10),
                     child: Chip(
                       label: Text(gender),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     ),
                   ))
             ],
@@ -171,8 +169,7 @@ class _ActorsByMovie extends ConsumerWidget {
                 Text(
                   actor.character ?? '',
                   maxLines: 2,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, overflow: TextOverflow.clip),
+                  style: const TextStyle(fontWeight: FontWeight.bold, overflow: TextOverflow.clip),
                 )
               ],
             ),
@@ -183,8 +180,7 @@ class _ActorsByMovie extends ConsumerWidget {
   }
 }
 
-final isFavoriteProvider =
-    FutureProvider.family.autoDispose((ref, int movieId) {
+final isFavoriteProvider = FutureProvider.family.autoDispose((ref, int movieId) {
   final localStorageRepository = ref.watch(localStorageRepositoryProvider);
   return localStorageRepository.isMovieFavorite(movieId);
 });
@@ -207,18 +203,14 @@ class _CustomSilverAppBar extends ConsumerWidget {
       actions: [
         IconButton(
           onPressed: () async {
-            await ref
-                .read(localStorageRepositoryProvider)
-                .toggleFavorite(movie);
+            await ref.read(localStorageRepositoryProvider).toggleFavorite(movie);
             ref.invalidate(isFavoriteProvider(movie.id));
           },
           icon: isFavoriteFuture.when(
             loading: () => const CircularProgressIndicator(
               strokeWidth: 2,
             ),
-            data: (isFavorite) => isFavorite
-                ? const Icon(Icons.favorite_rounded, color: Colors.red)
-                : const Icon(Icons.favorite_border),
+            data: (isFavorite) => isFavorite ? const Icon(Icons.favorite_rounded, color: Colors.red) : const Icon(Icons.favorite_border),
             error: (_, __) => throw UnimplementedError(),
           ),
         ),
@@ -275,11 +267,7 @@ class _CustomGradient extends StatelessWidget {
   final List<double>? stops;
   final List<Color> colors;
 
-  const _CustomGradient(
-      {this.begin = Alignment.centerLeft,
-      this.end = Alignment.centerRight,
-      this.stops,
-      required this.colors});
+  const _CustomGradient({this.begin = Alignment.centerLeft, this.end = Alignment.centerRight, this.stops, required this.colors});
 
   @override
   Widget build(BuildContext context) {

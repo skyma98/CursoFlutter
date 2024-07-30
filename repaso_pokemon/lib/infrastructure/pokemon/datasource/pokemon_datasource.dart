@@ -46,7 +46,7 @@ class PokemonDatasource implements APokemonDatasource {
 
     final pokemones = pokemonResponse.pokemon;
 
-    const int limit = 10;
+    const int limit = 5;
 
     final int startIndex = (page - 1) * limit;
     int endIndex = startIndex - 1 + limit;

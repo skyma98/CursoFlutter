@@ -14,19 +14,19 @@ class PokemonMapper {
 
   static PokemonType convertType(TypeResponse typeResponse) {
     return PokemonType(
-      url: typeResponse.type.url,
-      name: typeResponse.type.name,
+      url: typeResponse.type.url ?? '',
+      name: typeResponse.type.name ?? '',
     );
   }
 
   static Pokemon convertPokemon(PokemonResponse pokemonResponse) {
     return Pokemon(
-      name: pokemonResponse.name,
+      name: pokemonResponse.name ?? '',
       height: pokemonResponse.height,
       weight: pokemonResponse.weight,
       id: pokemonResponse.id,
       abilities: pokemonResponse.abilities.map((e) => AbilityMapper.convert(e)).toList(),
-      urlImage: pokemonResponse.sprites.frontDefault,
+      urlImage: pokemonResponse.sprites.frontDefault ?? '',
       types: pokemonResponse.types.map((e) => convertType(e)).toList(),
     );
   }

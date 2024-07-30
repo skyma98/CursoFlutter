@@ -3,6 +3,6 @@ import 'package:pokemon_prueba/infrastructure/pokemon/datasource/model/pokemon_r
 
 class AbilityMapper {
   static Ability convert(AbilityResponse abilityResponse) {
-    return Ability(name: abilityResponse.ability.name);
+    return Ability(name: abilityResponse.ability.name ?? '');
   }
 }

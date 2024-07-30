@@ -44,7 +44,7 @@ class _HorizontalListviewState extends State<HorizontalListview> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 250,
       child: Column(
         children: [
           _Title(title: widget.title),
@@ -85,6 +85,7 @@ class _Slide extends StatelessWidget {
         children: [
           //* Imagen
           SizedBox(
+            height: 180,
             width: 150,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),

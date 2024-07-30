@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../domain/entities/movie.dart';
 import '../../../domain/repositories/local_storage_repository.dart';
 
-final favoriteMoviesProvider =
-    StateNotifierProvider<StorageMovieNotifier, Map<int, Movie>>(
+final favoriteMoviesProvider = StateNotifierProvider<StorageMovieNotifier, Map<int, Movie>>(
   (ref) {
     final localStorageRepository = ref.watch(localStorageRepositoryProvider);
     return StorageMovieNotifier(localStorageRepository: localStorageRepository);
@@ -28,6 +27,6 @@ class StorageMovieNotifier extends StateNotifier<Map<int, Movie>> {
       tempMoviesMap[movie.id] = movie;
     }
 
-    state = {...state};
+    state = {...state, ...tempMoviesMap};
   }
 }

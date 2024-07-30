@@ -1,8 +1,6 @@
-import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cinemapedia/presentation/widgets/movies/movie_masonry.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FavoritesView extends ConsumerStatefulWidget {
@@ -21,25 +19,10 @@ class FavoriteViewState extends ConsumerState {
 
   @override
   Widget build(BuildContext context) {
-    final favoriteMovies =
-        ref.watch(favoriteMoviesProvider).entries.map((e) => e.value).toList();
-
-    // List<(int id, Movie peli)> listaPelis = [];
-
-    // favoriteMovies.forEach(
-    //   (key, value) {
-    //     listaPelis.add((key, value));
-    //   },
-    // );
+    final favoritesMovies = ref.watch(favoriteMoviesProvider).entries.map((movie) => movie.value).toList();
 
     return Scaffold(
-      body: ListView.builder(
-        itemCount: favoriteMovies.length,
-        itemBuilder: (context, index) {
-          final Movie movie = favoriteMovies[index];
-          return ListTile(title: Text(movie.title));
-        },
-      ),
+      body: MovieMasonry(movies: favoritesMovies),
     );
   }
 }

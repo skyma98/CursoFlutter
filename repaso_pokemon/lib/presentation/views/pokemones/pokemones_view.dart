@@ -18,11 +18,13 @@ class PokemonesView extends ConsumerWidget {
       body: pokemonsTypes.when(
         data: (pokemonTypes) {
           return ListView.builder(
-            itemCount: 1,
+            itemCount: 5,
             itemBuilder: (BuildContext context, int index) {
-              final type = pokemonTypes[index].name;
+              final tipos = pokemonTypes.keys.toList();
+              final valores = pokemonTypes.values.toList();
+              final type = tipos[index].name;
               return FutureBuilder<List<Pokemon>>(
-                future: ref.read(pokemonRepositoyProvider).getPokemonsByType(type, 1),
+                future: ref.read(pokemonRepositoyProvider).getPokemonsByType(type, valores[index]),
                 initialData: const [],
                 builder: (BuildContext context, AsyncSnapshot<List<Pokemon>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
